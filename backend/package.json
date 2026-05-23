@@ -1,0 +1,28 @@
+{
+  "name": "intro-backend",
+  "version": "1.0.0",
+  "description": "Introduction to backend tutorial",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeslieABbrown/intro-backend.git"
+  },
+  "author": "Leslie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeslieABbrown/intro-backend/issues"
+  },
+  "homepage": "https://github.com/LeslieABbrown/intro-backend#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.6.2",
+    "nodemon": "^3.1.14"
+  }
+}
