@@ -19,14 +19,8 @@ const createPost = async (req, res) => {
         })
         
         //return the sucess message..
-        res.status(200).json({
-            message: "Post Created successfully",
-
-            post: {
-                name: post.name,
-                description: post.description,
-                age: age,
-            }
+        res.status(201).json({
+            message: "Post Created successfully", post
         })
 
     } catch (error) {
@@ -37,6 +31,82 @@ const createPost = async (req, res) => {
     }
 }
 
-export {
-    createPost
+//Display all posts
+const getPost = async (req, res) => {
+    try {
+        //fetch all posts
+        const posts = await Post.find();
+        //response
+        res.status(200).json(posts)
+        
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal Server error", error
+        })
+    }
 }
+
+//Update post
+const updatePost = async (req, res) => {
+    try {
+        
+        //Basic Validation to make sure the body is not empty
+
+        
+        //{name: x, description: y, age: z} -> [name, description, age]
+        if(Object.keys(req.body).length === 0) {
+            return res.status(400).json({
+                message: "No data provided for update"
+            })
+        }
+
+        //Find and update the post
+        const post = await Post.findByIdAndUpdate(req.params.id, req.body, {new: true})
+
+        if(!post) return res.status(404).json({
+            message: "Post not found"
+        });
+
+        res.status(200).json({
+            message: "Post updated successfully", post
+        });
+
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal server error", error
+        })
+    }
+}
+
+//Delete Post
+const deletePost = async (req, res) => {
+    try {
+        const deleted = await Post.findByIdAndDelete(req.params.id);
+
+        //check if the post exists
+        if(!deleted) return res.status(404).json({
+            message: "Post not found"
+        });
+
+        res.status(200).json({
+            message: "Post Deleted successfully!"
+        })
+
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal server error", error
+        })
+    }
+}
+
+
+export {
+    createPost,
+    getPost,
+    updatePost,
+    deletePost
+}
+
+//1:54:53
